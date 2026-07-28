@@ -6,8 +6,9 @@
 
 typedef struct s_data
 {
-	int	v_flag;
-	int	exit_code;
+	char	*host; 
+	int		v_flag;
+	int		exit_code;
 }	t_data;
 
 void free_exit(t_data *data, int exit_code);
