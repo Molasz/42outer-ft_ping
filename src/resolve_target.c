@@ -9,13 +9,13 @@ static void	fill_dest_addr(t_data *data, struct addrinfo *res)
 	if (!inet_ntop(AF_INET, &addr_in->sin_addr, data->dest_ip_str, INET_ADDRSTRLEN))
 	{
 		fprintf(stderr, "ft_ping: inet_ntop failed\n");
-		exit(1);
+		free_exit(data, 1);
 	}
 }
 
 void    resolve_targets(t_data *data)
 {
-    struct addrinfo	hints;
+	struct addrinfo	hints;
 	struct addrinfo	*res;
 	int				status;
 	struct in_addr	tmp;
@@ -28,7 +28,7 @@ void    resolve_targets(t_data *data)
 	if (status != 0)
 	{
 		fprintf(stderr, "ft_ping: %s: %s\n", data->host, gai_strerror(status));
-		exit(1);
+		free_exit(data, 1);
 	}
 	fill_dest_addr(data, res);
 	freeaddrinfo(res);

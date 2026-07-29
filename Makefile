@@ -19,7 +19,7 @@ IDIR		= includes/
 
 DEPS		= $(addprefix $(ODIR), $(SRCS:.c=.d))
 
-CFLAGS		= -Wall -Wextra -Werror -MMD -lm -Iincludes/ 
+CFLAGS		= -Wall -Wextra -Werror -MMD -Iincludes/ 
 
 AR			= ar rcs
 
@@ -34,7 +34,7 @@ obj/%.o:	src/%.c Makefile
 				$(CC) $(CFLAGS) -c $< -o $@
 
 ${NAME}:	$(OBJS)
-				$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
+				$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -lm 
 
 bonus:		all
 

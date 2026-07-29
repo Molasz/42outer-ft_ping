@@ -2,7 +2,7 @@
 
 void    print_stats(t_data *data)
 {
-    double	loss;
+	double	loss;
 	double	avg;
 	double	mdev;
 

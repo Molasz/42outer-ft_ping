@@ -28,8 +28,8 @@ void	send_loop(t_data *data)
 	i = 0;
 	while (1)
 	{
-		i++;
 		send_recv(data, i);
+		i++;
 		sleep(1);
 	}
 }
