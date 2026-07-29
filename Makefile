@@ -1,7 +1,13 @@
 NAME		= ft_ping
 
 SRCS		= ft_ping.c \
-				parse_args.c
+				parse_args.c \
+				resolve_target.c \
+				socket.c \
+				setup.c \
+				stats.c \
+				packet.c \
+				send.c
 
 OBJS		= $(addprefix $(ODIR), $(SRCS:.c=.o))
 
@@ -13,7 +19,7 @@ IDIR		= includes/
 
 DEPS		= $(addprefix $(ODIR), $(SRCS:.c=.d))
 
-CFLAGS		= -Wall -Wextra -Werror -MMD -Iincludes/ 
+CFLAGS		= -Wall -Wextra -Werror -MMD -lm -Iincludes/ 
 
 AR			= ar rcs
 

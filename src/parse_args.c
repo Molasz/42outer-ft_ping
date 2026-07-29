@@ -32,13 +32,11 @@ static void	read_flag(char *str, t_data *data)
 	}
 }
 
-static int	read_flags(char **argv, t_data *data)
+static void	read_flags(char **argv, t_data *data)
 {
 	int		i;
-	int		args;
 
 	i = 0;
-	args = 0;
 	while (argv[i])
 	{
 		if (argv[i][0] == '-' && argv[i][1])
@@ -52,10 +50,15 @@ static int	read_flags(char **argv, t_data *data)
 		}
 		i++;
 	}
-	return (args);
 }
 
 void	parse_args(char **argv, t_data *data)
 {
 	read_flags(argv, data);
+	if (!data->host)
+	{
+		fprintf(stderr, "ft_ping: missing host operand\n");
+		fprintf(stderr, "Try './ft_ping --help' for more information.\n");
+		exit(1);
+	}
 }

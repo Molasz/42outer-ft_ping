@@ -2,14 +2,36 @@
 
 static void	init_data(t_data *data)
 {
+    data->host = NULL;
     data->v_flag = 0;
+	data->sockfd = -1;
+	data->sent = 0;
+	data->received = 0;
+	data->rtt_min = -1;
+	data->rtt_max = 0;
+	data->rtt_sum = 0;
+	data->rtt_sum2 = 0;
 	data->exit_code = 0;
 }
 
-void free_exit(t_data *data, int exit_code)
+void	free_exit(t_data *data, int exit_code)
 {
-    (void) data;
+    if (data->sockfd >= 0)
+		close(data->sockfd);
     exit(exit_code);
+}
+
+void	send_loop(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (1)
+	{
+		i++;
+		send_recv(data, i);
+		sleep(1);
+	}
 }
 
 int	main(int argc, char **argv)
@@ -19,6 +41,10 @@ int	main(int argc, char **argv)
 	(void) argc;
 	init_data(&data);
 	parse_args(argv + 1, &data);
+	resolve_targets(&data);
+	open_socket(&data);
+	setup(&data);
+	send_loop(&data);
     free_exit(&data, data.exit_code);
 	return (0);
 }
