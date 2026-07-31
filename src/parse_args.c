@@ -1,6 +1,6 @@
 #include "ft_ping.h"
 
-static void	print_help()
+static void	print_help(void)
 {
 	printf("\nUsage\n");
 	printf("\tping [options] <destination>\n\n");
@@ -45,7 +45,7 @@ static void	read_flags(char **argv, t_data *data)
 			data->host = argv[i];
 		else
 		{
-			fprintf(stderr, "ft_ping: only one destination allowed\n");
+			fprintf(stderr, "ft_ping: only one ip/domain allowed\n");
 			exit(1);
 		}
 		i++;

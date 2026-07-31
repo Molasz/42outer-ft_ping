@@ -2,8 +2,8 @@
 
 static void	init_data(t_data *data)
 {
-    data->host = NULL;
-    data->v_flag = 0;
+	data->host = NULL;
+	data->v_flag = 0;
 	data->sockfd = -1;
 	data->sent = 0;
 	data->received = 0;
@@ -11,14 +11,13 @@ static void	init_data(t_data *data)
 	data->rtt_max = 0;
 	data->rtt_sum = 0;
 	data->rtt_sum2 = 0;
-	data->exit_code = 0;
 }
 
 void	free_exit(t_data *data, int exit_code)
 {
-    if (data->sockfd >= 0)
+	if (data->sockfd >= 0)
 		close(data->sockfd);
-    exit(exit_code);
+	exit(exit_code);
 }
 
 void	send_loop(t_data *data)
@@ -42,9 +41,8 @@ int	main(int argc, char **argv)
 	init_data(&data);
 	parse_args(argv + 1, &data);
 	resolve_targets(&data);
-	open_socket(&data);
 	setup(&data);
 	send_loop(&data);
-    free_exit(&data, data.exit_code);
+	free_exit(&data, 0);
 	return (0);
 }

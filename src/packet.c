@@ -24,7 +24,7 @@ static unsigned short	compute_checksum(void *buf, int len)
 	return ((unsigned short) ~sum);
 }
 
-void	build_packet(t_data *data, char *packet, int seq)
+void	build_packet(char *packet, int seq)
 {
 	struct icmphdr	*icmp_hdr;
 	struct timeval	*tv;
@@ -37,10 +37,8 @@ void	build_packet(t_data *data, char *packet, int seq)
 	icmp_hdr->un.echo.id = getpid() & 0xFFFF;
 	icmp_hdr->un.echo.sequence = seq;
 	icmp_hdr->checksum = 0;
-
 	tv = (struct timeval *)(packet + sizeof(struct icmphdr));
 	gettimeofday(tv, NULL);
-
 	i = sizeof(struct timeval);
 	while (i < DATA_SIZE)
 	{
@@ -48,5 +46,4 @@ void	build_packet(t_data *data, char *packet, int seq)
 		i++;
 	}
 	icmp_hdr->checksum = compute_checksum(packet, PACKET_SIZE);
-	(void) data;
 }

@@ -30,7 +30,7 @@ static void	handle_packet(t_data *data, char *buf, int len, int seq)
 
 	ip_hdr = (struct ip *) buf;
 	ip_hdr_len = ip_hdr->ip_hl * 4;
-	if (len < ip_hdr_len + (int)sizeof(struct icmphdr))
+	if (len < ip_hdr_len + (int) sizeof(struct icmphdr))
 		return ;
 	icmp_hdr = (struct icmphdr *)(buf + ip_hdr_len);
 	if (icmp_hdr->type == ICMP_ECHOREPLY)
@@ -40,8 +40,8 @@ static void	handle_packet(t_data *data, char *buf, int len, int seq)
 		tv_sent = (struct timeval *)(buf + ip_hdr_len + sizeof(struct icmphdr));
 		rtt = elapsed_ms(tv_sent);
 		update_stats(data, rtt);
-		printf("%d bytes from %s: icmp_seq=%d ttl=%d time=%.3f ms\n",
-			len - ip_hdr_len, data->dest_ip_str, seq, ip_hdr->ip_ttl, rtt);
+		printf("%d bytes from %s: icmp_seq=%d ttl=%d time=%.1f ms\n",
+			len - ip_hdr_len, data->dest_ip_str, seq + 1, ip_hdr->ip_ttl, rtt);
 	}
 	else if (data->v_flag)
 		printf("From %s: icmp type=%d code=%d\n",
@@ -54,7 +54,7 @@ void	send_recv(t_data *data, int seq)
 	char	recv_buf[1024];
 	int		recv_len;
 
-	build_packet(data, packet, seq);
+	build_packet(packet, seq);
 	if (sendto(data->sockfd, packet, PACKET_SIZE, 0,
 			(struct sockaddr *)&data->dest_addr, sizeof(data->dest_addr)) < 0)
 	{
@@ -62,7 +62,7 @@ void	send_recv(t_data *data, int seq)
 		return ;
 	}
 	data->sent++;
-	recv_len = recvfrom(data->sockfd, recv_buf, sizeof(recv_buf), 0, NULL, NULL);
+	recv_len = recvfrom(data->sockfd, recv_buf, sizeof(recv_buf), 0, 0, 0);
 	if (recv_len < 0)
 	{
 		if (data->v_flag)

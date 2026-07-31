@@ -22,28 +22,24 @@
 
 typedef struct s_data
 {
-	char				*host; 
+	char				*host;
 	int					v_flag;
 	struct sockaddr_in	dest_addr;
 	char				dest_ip_str[INET_ADDRSTRLEN];
 	int					sockfd;
-	int					is_ip_literal;
 	int					sent;
 	int					received;
 	double				rtt_min;
 	double				rtt_max;
 	double				rtt_sum;
 	double				rtt_sum2;
-	int					exit_code;
 }	t_data;
 
 void	free_exit(t_data *data, int exit_code);
 void	parse_args(char **argv, t_data *data);
-void    resolve_targets(t_data *data);
-void	open_socket(t_data *data);
+void	resolve_targets(t_data *data);
 void	setup(t_data *data);
-void    print_stats(t_data *data);
-void	build_packet(t_data *data, char *packet, int seq);
+void	build_packet(char *packet, int seq);
 void	send_recv(t_data *data, int seq);
 
 #endif
